@@ -40,7 +40,7 @@ const userSchema = new Schema(
       required: [true, "Password is required"],
       index: true,
     },
-    refreshToken: {
+    refreshTokenValue: {
       type: String,
     },
   },
@@ -72,7 +72,7 @@ userSchema.methods.comparePassword = async function (password) {
 };
 
 userSchema.methods.generateToken = async function () {
-  jwt.sign(
+  return jwt.sign(
     {
       _id: this._id,
       username: this.username,
@@ -86,7 +86,7 @@ userSchema.methods.generateToken = async function () {
   );
 };
 userSchema.methods.refreshToken = async function () {
-  jwt.sign(
+  return jwt.sign(
     {
       _id: this._id,
     },
